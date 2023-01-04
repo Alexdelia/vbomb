@@ -5,6 +5,7 @@ use super::ValTileProps;
 #[allow(non_snake_case)]
 pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
     let open = use_state(&cx, || cx.props.open);
+    let transform = open.get().then(|| "rotateY(180deg)").unwrap_or("");
     // let tile = match open.get() {
     //     true => rsx!(Open { v: cx.props.v }),
     //     false => rsx!(
@@ -24,6 +25,7 @@ pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
             class: "tile",
             div {
                 class: "flip-container",
+                transform: "{transform}",
                 Open { v: cx.props.v },
                 section {
                     onclick: move |_| {
