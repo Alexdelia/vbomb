@@ -6,7 +6,7 @@ use super::ValTileProps;
 pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
     let open = use_state(&cx, || cx.props.open);
     let tile = match open.get() {
-        true => rsx!(Open {}),
+        true => rsx!(Open { v: cx.props.v }),
         false => rsx!(
             section {
                 onclick: move |_| {
@@ -17,21 +17,23 @@ pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
         ),
     };
 
-    cx.render(rsx!(
-        div {
-            class: "tile",
-            "{cx.props.v} {cx.props.i} {cx.props.open}",
-            tile
-        }
-    ))
+    cx.render(rsx!(div {
+        class: "tile",
+        tile
+    }))
+}
+
+#[derive(Props, PartialEq)]
+struct OpenProps {
+    v: u8,
 }
 
 #[allow(non_snake_case)]
-fn Open(cx: Scope) -> Element {
+fn Open(cx: Scope<OpenProps>) -> Element {
     cx.render(rsx!(
         div {
             class: "open",
-            "Open",
+            "{cx.props.v}",
         }
     ))
 }
