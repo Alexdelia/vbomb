@@ -1,0 +1,11 @@
+.tile {
+	color: #000e;
+}
+
+.open {
+	background-color: #fff7;
+}
+
+.close {
+	background-color: #0f0;
+}

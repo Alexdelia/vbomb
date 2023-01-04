@@ -1,0 +1,9 @@
+.board {
+	width: min(90vw, 90vh);
+	height: min(90vw, 90vh);
+	margin: auto 1rem;
+	display: grid;
+	grid-gap: 1rem;
+	border: 0.5rem solid #188300;
+	border-radius: 0.3rem;
+}
