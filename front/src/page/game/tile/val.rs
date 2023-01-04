@@ -5,24 +5,32 @@ use super::ValTileProps;
 #[allow(non_snake_case)]
 pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
     let open = use_state(&cx, || cx.props.open);
-    let tile = match open.get() {
-        true => rsx!(Open { v: cx.props.v }),
-        false => rsx!(
-            section {
-                onclick: move |_| {
-                    open.set(true);
-                },
-                rsx!(Close {})
-            }
-        ),
-    };
+    // let tile = match open.get() {
+    //     true => rsx!(Open { v: cx.props.v }),
+    //     false => rsx!(
+    //         section {
+    //             onclick: move |_| {
+    //                 open.set(true);
+    //             },
+    //             rsx!(Close {})
+    //         }
+    //     ),
+    // };
+
+    // transform: rotateY(180deg);
 
     cx.render(rsx!(
+        div {
+            class: "tile",
             div {
-                class: "tile",
-                div {
                 class: "flip-container",
-                tile
+                Open { v: cx.props.v },
+                section {
+                    onclick: move |_| {
+                        open.set(true);
+                    },
+                    Close {}
+                }
             }
         }
     ))
