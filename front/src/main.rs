@@ -9,8 +9,15 @@ fn app(cx: Scope) -> Element {
         section {
             style { [include_str!("./style.css")] }
             div {
-                color: "red",
-                "Hello, world!"
+                class: "dbg",
+                span {
+                    class: "dbg",
+                    "Hello, world!"
+                }
+                span {
+                    class: "dbg",
+                    "42"
+                }
             }
         }
     ))
