@@ -17,10 +17,15 @@ pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
         ),
     };
 
-    cx.render(rsx!(div {
-        class: "tile",
-        tile
-    }))
+    cx.render(rsx!(
+            div {
+                class: "tile",
+                div {
+                class: "flip-container",
+                tile
+            }
+        }
+    ))
 }
 
 #[derive(Props, PartialEq)]
@@ -32,7 +37,7 @@ struct OpenProps {
 fn Open(cx: Scope<OpenProps>) -> Element {
     cx.render(rsx!(
         div {
-            class: "open",
+            class: "open flip-back",
             "{cx.props.v}",
         }
     ))
@@ -42,7 +47,7 @@ fn Open(cx: Scope<OpenProps>) -> Element {
 fn Close(cx: Scope) -> Element {
     cx.render(rsx!(
         div {
-            class: "close",
+            class: "close flip-front",
             "Close",
         }
     ))
