@@ -6,6 +6,12 @@ fn main() {
 
 fn app(cx: Scope) -> Element {
     cx.render(rsx! (
-        div { "Hello, world!" }
+        section {
+            style { [include_str!("./style.css")] }
+            div {
+                color: "red",
+                "Hello, world!"
+            }
+        }
     ))
 }
