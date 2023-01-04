@@ -1,21 +1,19 @@
 .tile {
 	height: 100%;
 	width: 100%;
+	display: block;
 	color: #000e;
 	perspective: 1000px;
 }
 
 
 .open {
-	background-color: #fff7;
-}
-
-.close {
-	background-color: #0f0;
+	background-color: #eeff00;
 }
 
 
 .flip-container {
+	display: block;
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -25,14 +23,19 @@
 }
 
 
-.flip-front .flip-back {
+.flip-container * {
 	position: absolute;
+}
+
+
+.flip-front .flip-back {
 	width: 100%;
 	height: 100%;
 	-webkit-backface-visibility: hidden;
 	/* Safari */
 	backface-visibility: hidden;
 }
+
 
 .flip-back {
 	transform: rotateY(180deg);

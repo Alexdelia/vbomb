@@ -5,20 +5,20 @@ use super::ValTileProps;
 #[allow(non_snake_case)]
 pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
     let open = use_state(&cx, || cx.props.open);
-    let transform = open.get().then(|| "rotateY(180deg)").unwrap_or("");
-    // let tile = match open.get() {
-    //     true => rsx!(Open { v: cx.props.v }),
-    //     false => rsx!(
-    //         section {
-    //             onclick: move |_| {
-    //                 open.set(true);
-    //             },
-    //             rsx!(Close {})
-    //         }
-    //     ),
-    // };
+    let transform = use_state(&cx, || "".to_string());
 
-    // transform: rotateY(180deg);
+    let tile = match open.get() {
+        true => rsx!(Open { v: cx.props.v }),
+        false => rsx!(
+            div {
+                onclick: move |_| {
+                    open.set(true);
+                    transform.set("rotateY(180deg)".to_string());
+                },
+                Close {}
+            }
+        ),
+    };
 
     cx.render(rsx!(
         div {
@@ -26,13 +26,7 @@ pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
             div {
                 class: "flip-container",
                 transform: "{transform}",
-                Open { v: cx.props.v },
-                section {
-                    onclick: move |_| {
-                        open.set(true);
-                    },
-                    Close {}
-                }
+                tile
             }
         }
     ))
@@ -55,10 +49,11 @@ fn Open(cx: Scope<OpenProps>) -> Element {
 
 #[allow(non_snake_case)]
 fn Close(cx: Scope) -> Element {
-    cx.render(rsx!(
-        div {
-            class: "close flip-front",
-            "Close",
-        }
-    ))
+    cx.render(rsx!(img {
+        class: "close flip-front",
+        width: "100%",
+        height: "100%",
+        src: "/assets/tile_back.svg",
+        alt: "B",
+    }))
 }
