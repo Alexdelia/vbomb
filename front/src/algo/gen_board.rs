@@ -29,8 +29,8 @@ pub fn gen_board() -> Vec<TileType> {
                 cast!(board[x * SIZE + in_size], TileType::Info).bomb += 1;
                 cast!(board[in_size * SIZE + y], TileType::Info).bomb += 1;
             } else {
-                cast!(board[x * SIZE + in_size], TileType::Info).point += 1;
-                cast!(board[in_size * SIZE + y], TileType::Info).point += 1;
+                cast!(board[x * SIZE + in_size], TileType::Info).point += v;
+                cast!(board[in_size * SIZE + y], TileType::Info).point += v;
             }
         }
     }
