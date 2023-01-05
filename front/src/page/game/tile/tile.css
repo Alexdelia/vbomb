@@ -5,16 +5,30 @@
 }
 
 
+.flip-container {
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+
+.flip-container * {
+	position: absolute;
+}
+
+
 .open {
 	background-color: #b3bc38;
 	transform: translateZ(-0.005em);
 	-webkit-transform: translateZ(-0.005em);
+	visibility: hidden;
+	-webkit-visibility: hidden;
 }
 
 
 .close {
-	transform: translateZ(-0.755em);
-	-webkit-transform: translateZ(-0.755em);
+	transform: translateZ(-0.3em);
+	-webkit-transform: translateZ(-0.3em);
 }
 
 
@@ -26,6 +40,10 @@
 	-webkit-animation: spin 0.1s linear;
 	animation-iteration-count: 1;
 	-webkit-animation-iteration-count: 1;
+}
+
+.coin * {
+	visibility: visible;
 }
 
 @keyframes spin {
@@ -54,9 +72,4 @@
 	-webkit-transform: rotateY(-90deg);
 	transform-origin: 100% 50%;
 	-webkit-transform-origin: 100% 50%;
-}
-
-
-.flip-container * {
-	position: absolute;
 }

@@ -4,39 +4,20 @@ use super::ValTileProps;
 
 #[allow(non_snake_case)]
 pub fn ValTile(cx: Scope<ValTileProps>) -> Element {
-    let open = use_state(&cx, || cx.props.open);
-    let flip = use_state(&cx, || if *open.get() { "coin" } else { "coin" });
-    // let transform = use_state(&cx, || "".to_string());
-
-    // let tile = match open.get() {
-    //     true => rsx!(Open { v: cx.props.v }),
-    //     false => rsx!(
-    //         div {
-    //             onclick: move |_| {
-    //                 open.set(true);
-    //                 transform.set("rotateY(180deg)".to_string());
-    //             },
-    //             Close {}
-    //         }
-    //     ),
-    // };
+    let class_name = use_state(&cx, || if cx.props.open { "coin" } else { "" });
 
     cx.render(rsx!(
         div {
             class: "tile",
             div {
-                class: "flip-container {flip}",
-                // transform: "{transform}",
+                class: "flip-container {class_name}",
                 Open { v: cx.props.v },
                 div {
                     onclick: move |_| {
-                        open.set(true);
-                        flip.set("coin");
-                        // transform.set("rotateY(180deg)".to_string());
+                        class_name.set("coin");
                     },
                     Close {}
                 }
-                // tile
             }
         }
     ))
