@@ -9,7 +9,6 @@ use none::NoneTile;
 
 #[derive(Props, PartialEq)]
 pub struct ValTileProps {
-    pub i: usize,
     pub v: u8,
     pub open: bool,
 }
@@ -29,6 +28,7 @@ pub enum TileType {
 
 #[derive(Props, PartialEq)]
 pub struct TileProps {
+    idx: usize,
     tile: TileType,
 }
 
@@ -36,7 +36,6 @@ pub struct TileProps {
 pub fn Tile(cx: Scope<TileProps>) -> Element {
     let tile = match &cx.props.tile {
         TileType::Val(v) => rsx!(ValTile {
-            i: v.i,
             v: v.v,
             open: v.open
         }),

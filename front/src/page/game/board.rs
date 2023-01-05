@@ -1,16 +1,16 @@
 use dioxus::prelude::*;
 
-use super::tile::{Tile, TileType, ValTileProps};
+use super::tile::{Tile, TileType};
 
 use crate::SIZE;
 
-#[allow(non_snake_case)]
-pub fn Board(cx: Scope) -> Element {
-    let mut tile: Vec<(usize, u8)> = Vec::with_capacity(SIZE * SIZE);
-    for i in 0..SIZE * SIZE {
-        tile.push((i, (i % SIZE) as u8));
-    }
+#[derive(Props, PartialEq)]
+struct BoardProps {
+    tile: Vec<TileType>,
+}
 
+#[allow(non_snake_case)]
+pub fn Board(cx: Scope<BoardProps>) -> Element {
     let gtc = "1fr ".repeat(SIZE);
 
     cx.render(rsx!(
@@ -18,14 +18,11 @@ pub fn Board(cx: Scope) -> Element {
         section {
             class: "board",
             grid_template_columns: "{gtc}",
-            tile.iter().map(|t| {
+            cx.props.tile.iter().enumerate().map(|(i, t)| {
                 rsx!(
                     Tile {
-                        tile: TileType::Val(ValTileProps {
-                            i: t.0,
-                            v: t.1,
-                            open: false,
-                        })
+                        idx: i,
+                        tile: *t,
                     }
                 )
             })
