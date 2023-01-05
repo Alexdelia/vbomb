@@ -5,7 +5,7 @@ use super::tile::{Tile, TileType};
 use crate::SIZE;
 
 #[derive(Props, PartialEq)]
-struct BoardProps {
+pub struct BoardProps {
     tile: Vec<TileType>,
 }
 

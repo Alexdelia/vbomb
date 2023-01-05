@@ -7,19 +7,36 @@ use info::InfoTile;
 mod none;
 use none::NoneTile;
 
-#[derive(Props, PartialEq)]
+pub type Val = u8;
+
+#[derive(Props, PartialEq, Clone, Copy)]
 pub struct ValTileProps {
-    pub v: u8,
+    pub v: Val,
     pub open: bool,
 }
 
-#[derive(Props, PartialEq)]
+impl Default for ValTileProps {
+    fn default() -> Self {
+        Self { v: 0, open: false }
+    }
+}
+
+impl ValTileProps {
+    pub fn new(v: Val) -> Self {
+        Self {
+            v,
+            ..Default::default()
+        }
+    }
+}
+
+#[derive(Props, PartialEq, Clone, Copy, Default)]
 pub struct InfoTileProps {
-    pub point: u8,
+    pub point: Val,
     pub bomb: u8,
 }
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone, Copy)]
 pub enum TileType {
     Val(ValTileProps),
     Info(InfoTileProps),

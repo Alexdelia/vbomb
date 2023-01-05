@@ -29,6 +29,7 @@
 .close {
 	transform: translateZ(-0.3em);
 	-webkit-transform: translateZ(-0.3em);
+	cursor: pointer;
 }
 
 

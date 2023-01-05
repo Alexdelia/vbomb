@@ -1,37 +1,39 @@
+use rand::Rng;
+
+use super::cast::cast;
 use crate::page::game::tile::{InfoTileProps, TileType, ValTileProps};
 use crate::SIZE;
 
 pub fn gen_board() -> Vec<TileType> {
-    let mut tile = Vec::with_capacity(SIZE * SIZE);
+    let mut board: Vec<TileType> = Vec::with_capacity(SIZE * SIZE);
     let mut rng = rand::thread_rng();
 
     for x in 0..SIZE {
         for y in 0..SIZE {
             if x == SIZE - 1 && y == SIZE - 1 {
-                tile.push(TileType::None);
+                board.push(TileType::None);
             } else if x == SIZE - 1 || y == SIZE - 1 {
-                tile.push(TileType::Info(InfoTileProps { point: 0, bomb: 0 }));
+                board.push(TileType::Info(InfoTileProps::default()));
             } else {
-                tile.push(TileType::Val(ValTileProps {
-                    v: rng.gen_range(0..6),
-                    open: false,
-                }));
+                board.push(TileType::Val(ValTileProps::new(rng.gen_range(0..6))));
             }
         }
     }
 
-    for x in 0..SIZE - 1 {
-        for y in 0..SIZE - 1 {
-            let v = tile[x * SIZE + y].v;
+    let in_size = SIZE - 1;
+    for x in 0..in_size {
+        for y in 0..in_size {
+            let v = cast!(board[x * SIZE + y], TileType::Val).v;
+
             if v == 0 {
-                tile[(x + 1) * SIZE + y].bomb += 1;
-                tile[x * SIZE + (y + 1)].bomb += 1;
+                cast!(board[x * SIZE + in_size], TileType::Info).bomb += 1;
+                cast!(board[in_size * SIZE + y], TileType::Info).bomb += 1;
             } else {
-                tile[(x + 1) * SIZE + y].point += v;
-                tile[x * SIZE + (y + 1)].point += v;
+                cast!(board[x * SIZE + in_size], TileType::Info).point += 1;
+                cast!(board[in_size * SIZE + y], TileType::Info).point += 1;
             }
         }
     }
 
-    tile
+    board
 }
