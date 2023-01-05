@@ -1,6 +1,6 @@
 use rand::Rng;
 
-use super::cast::cast;
+use super::cast::{cast, cast_mut_ref};
 use crate::page::game::tile::{InfoTileProps, TileType, ValTileProps};
 use crate::SIZE;
 
@@ -26,11 +26,11 @@ pub fn gen_board() -> Vec<TileType> {
             let v = cast!(board[x * SIZE + y], TileType::Val).v;
 
             if v == 0 {
-                cast!(board[x * SIZE + in_size], TileType::Info).bomb += 1;
-                cast!(board[in_size * SIZE + y], TileType::Info).bomb += 1;
+                cast_mut_ref!(board[x * SIZE + in_size], TileType::Info).bomb += 1;
+                cast_mut_ref!(board[in_size * SIZE + y], TileType::Info).bomb += 1;
             } else {
-                cast!(board[x * SIZE + in_size], TileType::Info).point += v;
-                cast!(board[in_size * SIZE + y], TileType::Info).point += v;
+                cast_mut_ref!(board[x * SIZE + in_size], TileType::Info).point += v;
+                cast_mut_ref!(board[in_size * SIZE + y], TileType::Info).point += v;
             }
         }
     }
