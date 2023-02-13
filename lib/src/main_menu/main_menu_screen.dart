@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:ffi'; // For FFI
+import 'dart:io'; // For Platform.isX
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +26,13 @@ class MainMenuScreen extends StatelessWidget {
     final settingsController = context.watch<SettingsController>();
     final audioController = context.watch<AudioController>();
 
+    final DynamicLibrary clib = Platform.isAndroid
+        ? DynamicLibrary.open("libnative_add.so")
+        : DynamicLibrary.process();
+
+    final int Function() ft =
+        clib.lookup<NativeFunction<Int32 Function()>>("ft").asFunction();
+
     return Scaffold(
       backgroundColor: palette.backgroundMain,
       body: ResponsiveScreen(
@@ -30,14 +40,27 @@ class MainMenuScreen extends StatelessWidget {
         squarishMainArea: Center(
           child: Transform.rotate(
             angle: -0.1,
-            child: const Text(
-              'Flutter Game Template!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Permanent Marker',
-                fontSize: 55,
-                height: 1,
-              ),
+            child: Column(
+              children: [
+                const Text(
+                  'Flutter Game Template!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Permanent Marker',
+                    fontSize: 55,
+                    height: 1,
+                  ),
+                ),
+                Text(
+                  ft().toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Permanent Marker',
+                    fontSize: 55,
+                    height: 1,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
