@@ -8,4 +8,5 @@ add_library(
 
     # Provides a relative path to your source file(s).
 	../c/src/export.c
+	../c/src/ft.c
 )
