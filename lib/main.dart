@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vbomb/play_screen.dart';
+import 'package:vbomb/page/play.dart';
 
 void main() {
   runApp(const VBomb());
@@ -32,7 +32,7 @@ class VBomb extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const PlayPage(title: 'Play Page'),
+      home: const PlayPage(),
     );
   }
 }

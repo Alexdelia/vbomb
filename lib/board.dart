@@ -23,30 +23,30 @@ class _BoardState extends State<Board> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            for (int row = 0; row < _board.length; row++)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (int col = 0; col < _board[row].length; col++)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _incrementCell(row, col);
-                        },
-                        child: Text(
-                          _board[row][col].toString(),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-          ],
+    return AspectRatio(
+      aspectRatio: 1.0,
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: _board.length,
         ),
+        itemBuilder: _buildGridItems,
+        itemCount: _board.length * _board[0].length,
+      ),
+    );
+  }
+
+  Widget _buildGridItems(BuildContext context, int index) {
+    final row = index ~/ _board.length;
+    final col = index % _board.length;
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ElevatedButton.icon(
+        onPressed: () {
+          _incrementCell(row, col);
+        },
+        icon: const Icon(Icons.add),
+        label: Text(_board[row][col].toString()),
       ),
     );
   }
