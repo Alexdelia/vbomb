@@ -6,7 +6,7 @@ class Rest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Card(
-      child: Text('Rest'),
+      child: Center(child: Text('Rest')),
     );
   }
 }

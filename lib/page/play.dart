@@ -7,11 +7,17 @@ class PlayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _PositionManager(
-      children: [
-        Board(),
-        Expanded(child: Rest()),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('PlayPage'),
+      ),
+      body: const _PositionManager(
+        children: [
+          SizedBox(child: Board()),
+          Expanded(child: Rest()),
+        ],
+      ),
     );
   }
 }
